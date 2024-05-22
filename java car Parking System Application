@@ -1,0 +1,146 @@
+package CarParking;
+import java.util.*;
+
+public class Car {
+	 static int colRow = 10;
+	static int[][]vehicleType=new int[colRow][colRow];
+    public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+        
+        System.out.println("Welcome to car parking");
+        System.out.println("Please choose a module:");
+        System.out.println("1.Create space");
+        System.out.println("2.Display vehicle");
+        System.out.println("3.Insert vehicle");
+        System.out.println("4.Take out vehicle");
+        System.out.println("5.History");
+        System.out.println("6.Exit");
+        int n = 1;
+               while(n!=6) {
+            	 
+            	   
+                
+                   String VehicleNo[][] = new String[colRow][colRow];
+                   int time[][] = new int[colRow][colRow];
+                   int[] car = new int[10];
+                   int[] bike = new int[10];
+                   int[] bycycle = new int[10];
+                   n = s.nextInt();
+                   switch (n) {
+                  
+                       case 1:
+                           // Creating space Array;
+                           ArrayCreate(colRow, vehicleType, VehicleNo, time);
+                           
+                           break;
+                       case 2:
+                    	   //Displaying parking space
+                           DisplayArray(colRow, vehicleType);
+                           
+                           break;
+                       case 3:
+                    	   //Inserting vehicle
+                    	   InsertVehicle(colRow, vehicleType, VehicleNo, time,s,car,bike,bycycle);
+                           //Display(colRow,result);
+                           break;
+                       default:
+                           System.out.println("Invalid choice!");
+                           
+                           break;
+                   }
+               }
+
+       
+    }
+ //array created
+    static void ArrayCreate(int a, int[][] vehicleType, String[][] VehicleNo, int[][] time) {
+        for (int i = 0; i < a; i++) {
+            for (int j = 0; j < a; j++) {
+                vehicleType[i][j] = 0;
+                VehicleNo[i][j] = "";
+                time[i][j] = 0;
+            }
+        }
+        System.out.println("Array created Successfully");
+    }
+//array displayed
+    static void DisplayArray(int a, int[][] vehicleType) {
+        for (int i = 0; i < a; i++) {
+            for (int j = 0; j < a; j++) {
+                if (vehicleType[i][j] == 0) {
+                    System.out.print('-');
+                } else {
+                    System.out.print(vehicleType[i][j]);
+                }
+            }
+            System.out.println(); // Add a line break after each row
+        }
+        System.out.println("Success!");
+    }
+    static void InsertVehicle(int a, int[][] vehicleType, String[][] VehicleNo, int[][] time, Scanner s, int[] car, int[] bike, int[] bycycle) {
+        System.out.println("Enter vehicle type:");
+        System.out.println("1. Car");
+        System.out.println("2. Bike");
+        System.out.println("3. Cycle");
+        int val = s.nextInt();
+        int n = 10;
+        System.out.println("Enter vehicle no:");
+        String num = s.next();
+        System.out.println("Enter entry time:");
+        int time1 = s.nextInt();
+        switch (val) {
+            case 1:
+                for (int i = n - 1; i >= 0; i--) {
+                    if (car[i] < 4) {
+                        vehicleType[i][car[i]] = 1;
+                        VehicleNo[i][car[i]] = num;
+                        time[i][car[i]] = time1;
+                        car[i]++;
+                        break; // Exit loop after inserting the car
+                    }
+                }
+                break;
+            case 2:
+                for (int i = n - 1; i >= 0; i--) {
+                    if (bike[i] < 4) {
+                        
+                        vehicleType[i][bike[i] + 4] = 2;
+                        VehicleNo[i][bike[i] + 4] = num;
+                        time[i][bike[i] + 4] = time1;
+                        bike[i]++;
+                        break; // Exit loop after inserting the bike
+                    }
+                }
+                break;
+            case 3:
+                for (int i = n - 1; i >= 0; i--) {
+                    if (bycycle[i] < 4) {
+                        
+                        vehicleType[i][bycycle[i] + 8] = 3;
+                        VehicleNo[i][bycycle[i] + 8] = num;
+                        time[i][bycycle[i] + 8] = time1;
+                        bycycle[i]++;
+                        break; // Exit loop after inserting the cycle
+                    }
+                }
+                break;
+        }
+
+       
+    }
+    static void Display(int a,int[][] result) {
+        for (int i = 0; i < a; i++) {
+            for (int j = 0; j < a; j++) {
+                if (result[i][j] == 0) {
+                    System.out.print('-');
+                } else {
+                    System.out.print(result[i][j]);
+                }
+            }
+            System.out.println(); // Add a line break after each row
+        }
+        System.out.println("Success!");
+    }
+
+    
+}
